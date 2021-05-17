@@ -1,29 +1,50 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div>
+    <canvas id="myChart"></canvas>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+// import Chart from "chart.js";
 
 export default Vue.extend({
-  name: "App",
-  components: {
-    HelloWorld,
+  mounted() {
+    const canvasElement = document.getElementById(
+      "myChart"
+    ) as HTMLCanvasElement;
+    const ctx = canvasElement.getContext("2d");
+    if (!ctx) {
+      return;
+    }
+    const chart = new this.$_Chart(ctx, {
+      // The type of chart we want to create
+      type: "line",
+      // The data for our dataset
+      data: {
+        labels: [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+        ],
+        datasets: [
+          {
+            label: "My First dataset",
+            backgroundColor: "rgb(255, 99, 132)",
+            borderColor: "rgb(255, 99, 132)",
+            data: [0, 10, 5, 2, 20, 30, 45],
+          },
+        ],
+      },
+      // Configuration options go here
+      options: {},
+    });
   },
 });
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style scoped></style>
